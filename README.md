@@ -68,14 +68,16 @@ empty-state row does not misfire when `M` is greater than zero (4 / 4).
 
 ## Install
 
-Copy the directory into your skills folder:
-
+```bash
+git clone https://github.com/hcooch2ch3/briefing-progress.git ~/.claude/skills/briefing-progress-tmp
+mv ~/.claude/skills/briefing-progress-tmp/skills/briefing-progress ~/.claude/skills/
+rm -rf ~/.claude/skills/briefing-progress-tmp
 ```
-~/.claude/skills/briefing-progress/     # Claude Code
-~/.agents/skills/briefing-progress/     # cross-runtime alias
-```
 
-The agent loads it on its own when someone asks where things stand.
+Or place `skills/briefing-progress/SKILL.md` at `~/.claude/skills/briefing-progress/SKILL.md`
+manually. Runtimes other than Claude Code read `~/.agents/skills/briefing-progress/` instead.
+
+Nothing else to configure — the agent loads it on its own when someone asks where things stand.
 
 ## Language
 
