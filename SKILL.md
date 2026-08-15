@@ -1,6 +1,6 @@
 ---
 name: briefing-progress
-description: Use when someone asks where a multi-step effort stands — what is finished, what is left — especially a non-specialist stakeholder. Fires on "브리핑", "지금까지 한 일", "어디까지 됐어", "남은 일", "진행 상황", "status", "progress". Not for a technical question about one file or one bug.
+description: Use when someone asks where a multi-step effort stands — what is finished, what is left — especially a non-specialist stakeholder. Fires on "브리핑", "지금까지 한 일", "어디까지 됐어", "남은 일", "진행 상황", "전체 진행", "status", "progress", "where are we". Not for a technical question about one file or one bug.
 license: MIT
 ---
 
@@ -14,25 +14,26 @@ A status briefing for a person, not a changelog for a machine. Two failure modes
 
 ## Count Before Any Status Claim — Required
 
-**The number.** `N` = in-scope milestones in one named plan revision; `M` = those whose completion criteria are verified. Keep the unit word the reader can picture ("단계", stages, milestones) — drop only the sequence claim: say "N단계 중 M단계 완료", never "M단계까지", which asserts that stages 1..M are all done. Script the tally (`grep -c '^- \[x\]'` vs `'^- \[ \]'` per section); never state a count you estimated by reading.
+**The number.** `N` = in-scope milestones in one named plan revision; `M` = those whose completion criteria are verified. Keep a unit word the reader can picture — stages, milestones, 단계 — not a bare fraction. `M` counts milestones, not a prefix: it never claims the first `M` are the finished ones. Script the tally (`grep -c '^- \[x\]'` vs `'^- \[ \]'` per section); never state a count you estimated by reading.
 
 **One snapshot.** One plan revision, one branch, one verification time. Mixed evidence yields a number true of nothing.
 
 **Evidence has levels — report the highest one verified, and don't mix them:**
 
+`written → automated checks pass → wired into the product → a person can use it`
 `구현됨 → 자동 검증 통과 → 앱에 배선됨 → 사용자가 쓸 수 있음`
 
 A checked box, a commit, and a passing gate are three different claims. `git log` proves a commit exists, not that it is integrated, enabled, or usable.
 
-**Each milestone gets a state:** 완료 / 진행 중 / 막힘 / 시작 안 함 / 미검증. Only 완료 counts toward `M`. Never promote partial work to finished to tidy a table.
+**Each milestone gets a state:** done / in progress / blocked / not started / unverified — 완료 / 진행 중 / 막힘 / 시작 안 함 / 미검증. Only *done* counts toward `M`. Never promote partial work to finished to tidy a table.
 
-**When you cannot count** — no authoritative plan, artifacts disagreeing, no gate, failing gate, dirty tree, work split across branches — say so: "정확한 단계 수를 확인할 기준이 없습니다" beats a confident wrong number.
+**When you cannot count** — no authoritative plan, artifacts disagreeing, no gate, failing gate, dirty tree, work split across branches — say so. "There is no basis here for an exact milestone count" beats a confident wrong number.
 
 ## The Output Contract
 
 Produce these seven parts, in this order, **and nothing else** — no appendix, no technical-detail section.
 
-1. **Position line.** "전체 N단계 중 M단계 완료." Keep the unit; drop the "까지". Nothing precedes it.
+1. **Position line.** `M` of `N` milestones complete — "전체 N단계 중 M단계 완료." Its own sentence, and the first thing in the reply: no subject line, no greeting, no preamble, and no other number ahead of it.
 2. **One paragraph: what this work is for.** Reuse only words from this conversation or the product's own user-visible text.
 3. **Finished table.** One row per milestone, one sentence, ≤15 words, stating **what that milestone made true**. Group consecutive milestones sharing one outcome; past ~8 rows group by phase and offer the detail only if asked. When `M` is 0 the table still appears, as exactly one row: first cell `—`, second cell saying no milestone has met its completion criteria. Not a paragraph instead, not omitted.
 4. **Reality line.** The highest verified evidence level, and what the reader can use right now. When nothing is usable yet, say exactly that.
@@ -54,9 +55,46 @@ A repeated request to explain means **make the explanation simpler. It does not 
 
 Re-explain in plainer words, as many times as it takes. Not understanding is not delegation: leave the decision with the reader, and do not execute the specific change that decision governs until they decide it. Decide on their behalf only when they say to.
 
-## Example
+## Examples
 
-Shape transfers; the wording is this project's own.
+Shape transfers; the wording is each project's own. Write the briefing in the reader's
+language — these two differ only in that.
+
+### English
+
+````
+4 of 7 milestones complete.
+
+Making the export button produce a file the finance team can open in their own
+spreadsheet tool, instead of the raw dump it produces today.
+
+## Done
+| Milestone | What it made true |
+|---|---|
+| 1–2 ✅ | Export now writes real column headers and dates finance can read |
+| 3 ✅ | Rows over the size limit split into separate files instead of failing |
+| 4 ✅ | A failed export tells you which row broke it |
+
+The code is written and the automated checks pass. Nobody has opened one of these
+files in the finance team's own tool yet, so "it actually works for them" is not
+settled.
+
+## Remaining
+| Milestone | State | What is left |
+|---|---|---|
+| 5 | In progress | Currency columns still export as plain text — this is the first thing finance would notice |
+| 6 | Not started | Scheduled exports run on the old path |
+| 7 | Not started | Turning it on for everyone |
+
+## Worth knowing
+Milestone 5 needs someone with a finance account to open a real export and confirm
+the numbers. I cannot do that part. No owner is named in the plan.
+
+## Next step
+I would fix the currency columns next. Nothing for you to decide.
+````
+
+### 한국어
 
 ````
 전체 6단계 중 5단계 완료.
@@ -89,11 +127,11 @@ Shape transfers; the wording is this project's own.
 
 ## Common Mistakes
 
-| 잘못 | 바로잡기 |
+| Mistake | Fix |
 |---|---|
-| 기억으로 진행률을 말함 | 체크박스를 세어서 씀 |
-| 커밋이 있으니 완료로 봄 | 검증된 증거 단계까지만 주장 |
-| 부분 진행을 완료·미완료 한쪽으로 밀어넣음 | 진행 중·미검증으로 표시 |
-| "다 됐습니다"로 끝냄 | 지금 쓸 수 있는 것을 따로 말함 |
-| 이해 못 한 걸 위임으로 읽고 대신 결정함 | 결정은 남겨두고 설명만 다시 함 |
-| 내가 못 하는 일을 사용자 몫으로 단정 | 필요 조건으로 서술, 담당은 기록된 경우만 |
+| Giving a progress figure from memory | Count the boxes and use that number |
+| Reading a commit as a finished milestone | Claim only the evidence level you verified |
+| Forcing partial work into done or not-done | Mark it in progress or unverified |
+| Ending on "it's all finished" | Say separately what can be used right now |
+| Reading "explain it again" as "you decide" | Leave the decision; re-explain more plainly |
+| Turning what you cannot do into the reader's job | State it as a requirement; name an owner only if one is recorded |

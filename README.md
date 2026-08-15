@@ -38,16 +38,33 @@ Tested against a fixture repo designed to look further along than it was: a plan
 top-level checkboxes said 4 of 6 done, while a nested sub-item was open, two tests failed,
 and a finished feature sat behind a disabled flag. Ground truth: 0 of 6 complete.
 
-| | without the skill | with the skill |
-|---|---|---|
-| Opens with the position line | 0 / 2 | 10 / 10 |
-| Honors "one line, no tables, I'm late" | 0 / 1 | 5 / 5 |
-| Same output shape across repeats | 2 shapes / 2 runs | 1 shape / 5 runs |
-| Avoids all three traps | 3 / 3 | 10 / 10 |
+Numbers below are from six runs against the version in this repo — three in English, three
+in Korean, two of them told "I'm pasting this straight into an email" — plus two baseline
+runs with no skill loaded.
 
-Both arms avoided overclaiming — a capable model already resists that. What the skill
-reliably adds is **shape**: the denominator is always stated, the usable-right-now line is
-always there, and the answer looks the same every time you ask.
+| | without | with |
+|---|---|---|
+| Overclaimed — called a trapped milestone done | 0 / 2 | 0 / 6 |
+| Stated the denominator at all | 0 / 2 | 6 / 6 |
+| Led with the position line, nothing ahead of it | 0 / 2 | 6 / 6 |
+| Kept jargon and file names out | not measured | 6 / 6 |
+| Honored "one line, no tables, I'm late" | 0 / 1 | 2 / 2 |
+| Empty-state row when nothing is finished | — | 4 / 4 |
+
+Neither arm overclaimed — a capable model already resists that on its own, and this skill
+is not sold as a fix for it. What it reliably adds is **shape**: the denominator gets stated,
+the usable-right-now line is always there, and the answer arrives in the same form each time.
+
+Those six runs are the tail of a longer loop. Seventeen earlier runs against earlier drafts
+drove three fixes that the current wording carries: a full briefing was being returned to
+someone who had asked for one line; the finished table took two different forms when nothing
+was finished; and a first attempt at tightening the position line loosened it enough that one
+English run opened with a `Subject:` header instead. Each fix was re-measured before the next
+change. Two things still vary between runs and are not claimed as fixed: whether the reality
+line gets its own heading, and which milestone gets marked as the first one a user could see.
+
+A separate regression on a healthier repo — real milestones genuinely finished — confirmed the
+empty-state row does not misfire when `M` is greater than zero (4 / 4).
 
 ## Install
 
