@@ -14,7 +14,7 @@ A status briefing for a person, not a changelog for a machine. Two failure modes
 
 ## Count Before Any Status Claim — Required
 
-**The number.** `N` = in-scope milestones in one named plan revision; `M` = those whose completion criteria are verified. Keep a unit word the reader can picture — stages, milestones, 단계 — not a bare fraction. `M` counts milestones, not a prefix: it never claims the first `M` are the finished ones. Script the tally (`grep -c '^- \[x\]'` vs `'^- \[ \]'` per section); never state a count you estimated by reading.
+**The number.** `N` = in-scope milestones in one named plan revision; `M` = those whose completion criteria are verified. Keep a unit word the reader can picture — stages, milestones, 단계 — not a bare fraction. `M` counts milestones, not a prefix: it never claims the first `M` are the finished ones. Script the tally (`grep -ci '^- \[x\]'` vs `grep -c '^- \[ \]'` per section — case-insensitive, because `[X]` is a checked box too); never state a count you estimated by reading. Keep the `^` anchor: an indented sub-item is not a milestone, and counting one as such is how a half-done milestone reads as finished.
 
 **One snapshot.** One plan revision, one branch, one verification time. Mixed evidence yields a number true of nothing.
 
