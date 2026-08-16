@@ -18,13 +18,36 @@ what remains with a state per item, what nobody can do without a human, and one 
 
 The rules that do the work:
 
-- **Count, don't estimate.** The number comes from a scripted tally of the plan, never from reading.
+- **Count, don't estimate.** Where a plan exists, the number comes from a scripted tally of it —
+  never from reading and guessing. Where none exists, there is no number, and it says so.
 - **Evidence has levels** — `구현됨 → 자동 검증 통과 → 앱에 배선됨 → 사용자가 쓸 수 있음`.
   A commit proves a commit exists. It does not prove the feature is wired, enabled, or usable.
 - **Only verified milestones count.** Partial work is 진행 중 or 미검증, never rounded up.
 - **When you cannot count, say so.** "정확한 단계 수를 확인할 기준이 없습니다" beats a wrong number.
 - **A repeated "explain it again" means explain it simpler — it does not transfer the decision.**
 - **Never turn "I cannot do this" into "you must do this."**
+
+## With no plan document
+
+Most repos have no milestone list to tally. That case is supported, and it is not a
+degraded one — only three things change:
+
+| | with a plan | without |
+|---|---|---|
+| Opening line | `전체 6단계 중 0단계 완료.` | one sentence on why no number is available |
+| First table column | milestone numbers | work areas — "reading amounts", "finding the total" |
+| Caveats | where the plan and the build disagree | that a plan would buy you the number |
+
+Everything else is unchanged: what is finished, what is usable now, what remains with a
+state each, and one next step. Two side effects are arguably improvements — remaining items
+come out named rather than numbered, which reads better to a non-specialist, and they are
+derived from the code, so gaps no plan ever listed still surface.
+
+The trade is real, though: with no denominator there is no week-over-week figure. If a
+recurring report needs one, the briefing will tell you to write the plan down first.
+
+Measured over six runs on a repo with no plan file and no plan in its history, including one
+where the reader pushed for a percentage anyway: zero invented denominators.
 
 ## What it is not
 
