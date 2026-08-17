@@ -56,15 +56,15 @@ A checked box, a commit, and a passing gate are three different claims. `git log
 
 ## The Output Contract
 
-Produce these seven parts, in this order, **and nothing else** — no appendix, no technical-detail section.
+Produce these seven parts, in this order, **and nothing else** — no appendix, no technical-detail section. Parts 5 and 6 drop out when they would be empty, on the terms stated there; the rest always appear.
 
 1. **Position line.** `M` of `N` milestones complete — "전체 N단계 중 M단계 완료." Its own sentence, and the first thing in the reply: no subject line, no greeting, no preamble, and no other number ahead of it.
 2. **One paragraph: what this work is for.** Reuse only words from this conversation or the product's own user-visible text.
 3. **Finished table.** One row per milestone, one sentence, ≤15 words, stating **what that milestone made true**. Group consecutive milestones sharing one outcome; past ~8 rows group by phase and offer the detail only if asked. When `M` is 0 the table still appears, as exactly one row: first cell `—`, second cell saying no milestone has met its completion criteria. Not a paragraph instead, not omitted.
-4. **Reality line.** The highest verified evidence level, and what the reader can use right now. When nothing is usable yet, say exactly that.
-5. **Remaining table.** Same shape, plus each item's state. Mark where it first becomes visible to a user.
-6. **Caveats.** Include (a) every milestone whose recorded plan no longer matches what was built, and (b) every milestone you cannot execute yourself — real-device testing, store submission, anything needing credentials. Write it as a requirement, not an assignment ("사람이 기기를 직접 만져야 합니다"); name an owner only where one is recorded. Never turn "I cannot do this" into "you must do this".
-7. **Next step.** One recommendation. Ask a decision only when work is truly blocked without it — then give the consequence in the reader's terms, a default, and what proceeds regardless. No blocker, no question.
+4. **Reality line.** The evidence level **every** in-scope milestone has reached — the floor across the set, not the ceiling — and what the reader can use right now. One milestone standing a rung higher does not lift this line; name that one separately if it matters. When nothing is usable yet, say exactly that.
+5. **Remaining table.** Same shape, plus each item's state. Mark where it first becomes visible to a user. When nothing remains, drop this part — part 1 already said so, and a table of nothing reads as an omission.
+6. **Caveats.** Include (a) every milestone whose recorded plan no longer matches what was built, and (b) every milestone you cannot execute yourself — real-device testing, store submission, anything needing credentials. Write it as a requirement, not an assignment ("사람이 기기를 직접 만져야 합니다"); name an owner only where one is recorded. Never turn "I cannot do this" into "you must do this". When neither (a) nor (b) has anything in it, drop this part. A risk invented to fill the space is the exact failure this contract exists to prevent.
+7. **Next step.** One recommendation — when the work is finished, that is what to do with it (hand it over, close it out), never an invented next task. Ask a decision only when work is truly blocked without it — then give the consequence in the reader's terms, a default, and what proceeds regardless. No blocker, no question.
 
 **If the reader asked for less** — a line, a sentence, no tables, or they said they are out of time — the briefing is part 1 followed by part 4, then one clause offering the rest. Parts 2, 3, 5, 6, 7 are dropped, not compressed into the same reply. The position line still comes first and `M` is still the verified count: a short answer is shorter, never rounder.
 
