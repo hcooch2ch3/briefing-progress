@@ -14,7 +14,28 @@ A status briefing for a person, not a changelog for a machine. Two failure modes
 
 ## Count Before Any Status Claim — Required
 
-**The number.** `N` = in-scope milestones in one named plan revision; `M` = those whose completion criteria are verified. Keep a unit word the reader can picture — stages, milestones, 단계 — not a bare fraction. `M` counts milestones, not a prefix: it never claims the first `M` are the finished ones. Script the tally (`grep -ci '^- \[x\]'` vs `grep -c '^- \[ \]'` per section — case-insensitive, because `[X]` is a checked box too); never state a count you estimated by reading. Keep the `^` anchor: an indented sub-item is not a milestone, and counting one as such is how a half-done milestone reads as finished.
+**The number.** `N` = in-scope milestones in one named plan revision; `M` = those whose completion criteria are verified. Keep a unit word the reader can picture — stages, milestones, 단계 — not a bare fraction. `M` counts milestones, not a prefix: it never claims the first `M` are the finished ones. **Script the tally, then cross-check it before you trust it.** Three counts, not two:
+
+- checked — `grep -cE '^[-*+] \[[xX]\] ' PLAN.md || true`
+- unchecked — `grep -cE '^[-*+] \[ \] ' PLAN.md || true`
+- every top-level box — `grep -cE '^[-*+] \[.\] ' PLAN.md || true`
+
+The third must equal the first two added together. When it doesn't, the plan marks some
+milestones with something other than `[x]` or a space (`[~]`, `[/]`, `[-]` are common) and
+those are missing from both counts — which shrinks the denominator and inflates the ratio.
+Stop there and go to *When you cannot count*.
+
+Three things the pattern still can't do for you. Keep the `^` anchor: an indented sub-item
+is not a milestone, and counting one as such is how a half-done milestone reads as finished.
+A checkbox inside a fenced code block matches like any other, so a plan that documents its
+own format inflates both counts — exclude that block by hand. And `grep` exits non-zero when
+nothing matches, which is why `|| true` is there: without it a scripted tally dies at exactly
+`M = 0`, the case this contract most needs to get right.
+
+**The tally gives you a candidate set, not `M`.** `M` is the subset whose completion criteria
+you then confirmed, and confirming them means opening the plan and looking at the evidence —
+that is required here, not the estimating this rule forbids. What is forbidden is a count
+from memory or from what you recall of the conversation.
 
 **One snapshot.** One plan revision, one branch, one verification time. Mixed evidence yields a number true of nothing.
 

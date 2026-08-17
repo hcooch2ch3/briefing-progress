@@ -10,44 +10,51 @@ a wall of commit titles, or a confident number nobody counted. This skill replac
 with a seven-part contract that always opens on the same line:
 
 ```
+0 of 6 milestones complete.
 전체 6단계 중 0단계 완료.
 ```
 
-…followed by what the work is for, what is finished, **what you can actually use right now**,
-what remains with a state per item, what nobody can do without a human, and one next step.
+The briefing comes out in whatever language the conversation is in; the two lines above are
+the same opening. After it: what the work is for, what is finished, **what you can actually
+use right now**, what remains with a state per item, what nobody can do without a human, and
+one next step.
 
 The rules that do the work:
 
-- **Count, don't estimate.** Where a plan exists, the number comes from a scripted tally of it —
-  never from reading and guessing. Where none exists, there is no number, and it says so.
-- **Evidence has levels** — `구현됨 → 자동 검증 통과 → 앱에 배선됨 → 사용자가 쓸 수 있음`.
-  A commit proves a commit exists. It does not prove the feature is wired, enabled, or usable.
-- **Only verified milestones count.** Partial work is 진행 중 or 미검증, never rounded up.
-- **When you cannot count, say so.** "정확한 단계 수를 확인할 기준이 없습니다" beats a wrong number.
+- **Count, don't estimate.** Where a plan exists, the number comes from a scripted tally of it,
+  cross-checked against the plan's own box count — never from reading and guessing. Where no
+  plan exists, there is no number, and it says so.
+- **Evidence has levels** — written → automated checks pass → wired into the product → a person
+  can use it. A commit proves a commit exists. It does not prove the feature is wired, enabled,
+  or usable.
+- **Only verified milestones count.** Partial work is *in progress* or *unverified*, never
+  rounded up.
+- **When you cannot count, say so.** "There is no basis here for an exact milestone count"
+  beats a wrong number.
 - **A repeated "explain it again" means explain it simpler — it does not transfer the decision.**
 - **Never turn "I cannot do this" into "you must do this."**
 
 ## With no plan document
 
-Most repos have no milestone list to tally. That case is supported, and it is not a
-degraded one — only three things change:
+Most repos have no milestone list to tally. That case is handled rather than refused — three
+things change:
 
 | | with a plan | without |
 |---|---|---|
-| Opening line | `전체 6단계 중 0단계 완료.` | one sentence on why no number is available |
+| Opening line | `0 of 6 milestones complete.` | one sentence on why no number is available |
 | First table column | milestone numbers | work areas — "reading amounts", "finding the total" |
 | Caveats | where the plan and the build disagree | that a plan would buy you the number |
 
-Everything else is unchanged: what is finished, what is usable now, what remains with a
-state each, and one next step. Two side effects are arguably improvements — remaining items
-come out named rather than numbered, which reads better to a non-specialist, and they are
-derived from the code, so gaps no plan ever listed still surface.
+Everything else stays: what is finished, what is usable now, what remains with a state each,
+and one next step. Remaining items come out named rather than numbered, and they are read off
+the code, so an item no plan ever listed can still show up.
 
-The trade is real, though: with no denominator there is no week-over-week figure. If a
-recurring report needs one, the briefing will tell you to write the plan down first.
+The trade is real: with no denominator there is no week-over-week figure. If a recurring
+report needs one, the briefing will tell you to write the plan down first.
 
-Measured over six runs on a repo with no plan file and no plan in its history, including one
-where the reader pushed for a percentage anyway: zero invented denominators.
+This path was exercised by hand on a repo with no plan file and none in its history, including
+a reader who pushed for a percentage anyway. No run invented a denominator. Same caveat as
+below — development notes, not measurement.
 
 ## What it is not
 
@@ -55,47 +62,43 @@ where the reader pushed for a percentage anyway: zero invented denominators.
 - Not for a single technical question about one file or one bug.
 - Not an agent-to-agent handoff document. The reader is a human, often a non-specialist.
 
-## Measured behavior
+## What was tried, and what it does not prove
 
-Tested against a fixture repo designed to look further along than it was: a plan whose
-top-level checkboxes said 4 of 6 done, while a nested sub-item was open, two tests failed,
-and a finished feature sat behind a disabled flag. Ground truth: 0 of 6 complete.
+Developed against fixture repos built to look further along than they were — a plan whose
+top-level checkboxes said 4 of 6 done while a nested sub-item was open, two tests failed, and
+a finished feature sat behind a disabled flag. Runs were done by hand, in Korean and English,
+including readers who asked for one line and readers with no plan file at all. Findings drove
+several rewrites: a full briefing was being returned to someone who had asked for one line,
+the finished table took two different shapes when nothing was finished, and one attempt at
+tightening the opening line loosened it enough that a run led with a `Subject:` header.
 
-Numbers below are from six runs against the version in this repo — three in English, three
-in Korean, two of them told "I'm pasting this straight into an email" — plus two baseline
-runs with no skill loaded.
+What held up across those runs: the briefing opened on the position line, said what was usable
+right now, and did not read a checked box as a finished milestone.
 
-| | without | with |
-|---|---|---|
-| Overclaimed — called a trapped milestone done | 0 / 2 | 0 / 6 |
-| Stated the denominator at all | 0 / 2 | 6 / 6 |
-| Led with the position line, nothing ahead of it | 0 / 2 | 6 / 6 |
-| Kept jargon and file names out | not measured | 6 / 6 |
-| Honored "one line, no tables, I'm late" | 0 / 1 | 2 / 2 |
-| Empty-state row when nothing is finished | — | 4 / 4 |
+**What this does not establish.** The control arm was two runs, so it cannot separate "the
+skill did this" from "a capable model does this anyway" — and the one thing it did show is
+that the baseline did not overclaim either. This skill is not sold as a fix for overclaiming.
+Runs were scored by the author against the author's own output, unblinded, with no rubric
+published here. No transcripts, fixtures, or model versions are committed to this repo, so
+none of it is reproducible by you. Treat the above as development notes, not measurement.
 
-Neither arm overclaimed — a capable model already resists that on its own, and this skill
-is not sold as a fix for it. What it reliably adds is **shape**: the denominator gets stated,
-the usable-right-now line is always there, and the answer arrives in the same form each time.
-
-Those six runs are the tail of a longer loop. Seventeen earlier runs against earlier drafts
-drove three fixes that the current wording carries: a full briefing was being returned to
-someone who had asked for one line; the finished table took two different forms when nothing
-was finished; and a first attempt at tightening the position line loosened it enough that one
-English run opened with a `Subject:` header instead. Each fix was re-measured before the next
-change. Two things still vary between runs and are not claimed as fixed: whether the reality
-line gets its own heading, and which milestone gets marked as the first one a user could see.
-
-A separate regression on a healthier repo — real milestones genuinely finished — confirmed the
-empty-state row does not misfire when `M` is greater than zero (4 / 4).
+Two things vary between runs and are not claimed as fixed: whether the reality line gets its
+own heading, and which milestone gets marked as the first one a user could see.
 
 ## Install
 
 ```bash
-git clone https://github.com/hcooch2ch3/briefing-progress.git ~/.claude/skills/briefing-progress-tmp
-mv ~/.claude/skills/briefing-progress-tmp/skills/briefing-progress ~/.claude/skills/
-rm -rf ~/.claude/skills/briefing-progress-tmp
+rm -rf /tmp/briefing-progress-tmp \
+  && git clone https://github.com/hcooch2ch3/briefing-progress.git /tmp/briefing-progress-tmp \
+  && mkdir -p ~/.claude/skills \
+  && rm -rf ~/.claude/skills/briefing-progress \
+  && mv /tmp/briefing-progress-tmp/skills/briefing-progress ~/.claude/skills/ \
+  && rm -rf /tmp/briefing-progress-tmp
 ```
+
+The steps are chained, and the old copy is removed before the new one moves in. Run the
+same block to upgrade: without the removal, `mv` fails on the existing directory and leaves
+you on the old version.
 
 Or place `skills/briefing-progress/SKILL.md` at `~/.claude/skills/briefing-progress/SKILL.md`
 manually. Runtimes other than Claude Code read `~/.agents/skills/briefing-progress/` instead.
