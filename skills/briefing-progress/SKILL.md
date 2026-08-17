@@ -48,7 +48,11 @@ A checked box, a commit, and a passing gate are three different claims. `git log
 
 **Each milestone gets a state:** done / in progress / blocked / not started / unverified — 완료 / 진행 중 / 막힘 / 시작 안 함 / 미검증. Only *done* counts toward `M`. Never promote partial work to finished to tidy a table.
 
+**Where the bar sits.** If the plan states its own completion criteria, those are the bar — use them even when they are stricter than the ladder. If it states none, the bar is `wired into the product`: the change is reachable in the thing people actually run. Name which of the two you applied, in one clause. A milestone resting at `written` or `automated checks pass` is 미검증 no matter how many commits it took, and the rung above the bar belongs in part 4, not in `M`.
+
 **When you cannot count** — no authoritative plan, artifacts disagreeing, no gate, failing gate, dirty tree, work split across branches — say so. "There is no basis here for an exact milestone count" beats a confident wrong number.
+
+**When nothing names the milestones** — no plan file, no tracker, nothing that says what the whole job is — you still owe the reader everything except the number. Part 1 becomes one sentence on why no number is available. In parts 3 and 5 the first column is the work area in plain words, not a milestone number. Part 6(a) becomes what writing the plan down would buy them. The rest of the contract is unchanged, and a denominator inferred from commits or from the shape of the code is still invented — don't.
 
 ## The Output Contract
 
