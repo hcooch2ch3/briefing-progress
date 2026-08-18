@@ -14,32 +14,37 @@ A status briefing for a person, not a changelog for a machine. Two failure modes
 
 ## Count Before Any Status Claim — Required
 
-**The number.** `N` = in-scope milestones in one named plan revision; `M` = those whose completion criteria are verified. Keep a unit word the reader can picture — stages, milestones, 단계 — not a bare fraction. `M` counts milestones, not a prefix: it never claims the first `M` are the finished ones. **Script the tally, then cross-check it before you trust it.** Three counts, not two:
+**The number.** `N` = in-scope milestones in one named plan revision; `M` = those whose completion criteria are verified. Keep a unit word the reader can picture — stages, milestones, 단계 — not a bare fraction. `M` counts milestones, not a prefix: it never claims the first `M` are the finished ones. **Script the tally, then read the plan behind it:**
 
-- checked — `grep -cE '^[-*+] \[[xX]\] ' PLAN.md || true`
-- unchecked — `grep -cE '^[-*+] \[ \] ' PLAN.md || true`
-- every top-level box — `grep -cE '^[-*+] \[.\] ' PLAN.md || true`
+- `N`, every top-level box — `grep -cE '^[-*+] \[.\] ' PLAN.md`
+- candidates for done — `grep -cE '^[-*+] \[[xX]\] ' PLAN.md`
 
-The third must equal the first two added together. When it doesn't, the plan marks some
-milestones with something other than `[x]` or a space (`[~]`, `[/]`, `[-]` are common) and
-those are missing from both counts — which shrinks the denominator and inflates the ratio.
-Stop there and go to *When you cannot count*.
+`\[.\]` takes whatever marker the plan uses: a milestone written `[~]`, `[/]` or `[-]` is in
+scope and simply not done, and takes one of the states in part 5. Only `[x]` or `[X]` is even a
+candidate for done.
 
-Three things the pattern still can't do for you. Keep the `^` anchor: an indented sub-item
-is not a milestone, and counting one as such is how a half-done milestone reads as finished.
-A checkbox inside a fenced code block matches like any other, so a plan that documents its
-own format inflates both counts — exclude that block by hand. And `grep` exits non-zero when
-nothing matches, which is why `|| true` is there: without it a scripted tally dies at exactly
-`M = 0`, the case this contract most needs to get right.
+**Read `grep`'s exit code; never write `|| true`.** 1 means nothing matched — `N = 0`, the case
+this contract most needs to get right. 2 means the file isn't there, which is *When nothing
+names the milestones* instead. `|| true` reports the two as the same `0`.
 
-**The tally gives you a candidate set, not `M`.** `M` is the subset whose completion criteria
-you then confirmed, and confirming them means opening the plan and looking at the evidence —
-that is required here, not the estimating this rule forbids. What is forbidden is a count
-from memory or from what you recall of the conversation.
+**Both counts are candidates, not answers.** The pattern counts lines; a plan is not a line
+format. Open it and reconcile. Brackets that are not milestones come out — a citation `[1]`, a
+checklist written at column 0 under a heading, anything in a fenced block where the plan
+documented its own format. Milestones the pattern could not see go in — `1. [x]`, headings, a
+tracker; a count of `0` from a file that plainly lists milestones means the plan is not in this
+format at all. Keep the `^` anchor while you reconcile: an indented sub-item is not a milestone,
+and counting one as such is how a half-done milestone reads as finished. If the two readings
+will not settle, go to *When you cannot count*.
+
+**`M` is narrower still**: the done candidates whose completion criteria you then confirmed, and
+confirming them means looking at the evidence — that is required here, not the estimating this
+rule forbids. What is forbidden is a count from memory or from what you recall of the
+conversation.
 
 **One snapshot.** One plan revision, one branch, one verification time. Mixed evidence yields a number true of nothing.
 
-**Evidence has levels — report the highest one verified, and don't mix them:**
+**Evidence has levels.** Each milestone's own level is the highest rung verified *for that
+milestone*, and no rung is claimed for a milestone that has not reached it:
 
 `written → automated checks pass → wired into the product → a person can use it`
 `구현됨 → 자동 검증 통과 → 앱에 배선됨 → 사용자가 쓸 수 있음`
@@ -56,7 +61,7 @@ A checked box, a commit, and a passing gate are three different claims. `git log
 
 ## The Output Contract
 
-Produce these seven parts, in this order, **and nothing else** — no appendix, no technical-detail section. Parts 5 and 6 drop out when they would be empty, on the terms stated there; the rest always appear.
+Produce these seven parts, in this order, **and nothing else** — no appendix, no technical-detail section. Parts 5 and 6 drop out when they would be empty, on the terms stated there; the rest always appear, except under *If the reader asked for less* below.
 
 1. **Position line.** `M` of `N` milestones complete — "전체 N단계 중 M단계 완료." Its own sentence, and the first thing in the reply: no subject line, no greeting, no preamble, and no other number ahead of it.
 2. **One paragraph: what this work is for.** Reuse only words from this conversation or the product's own user-visible text.
@@ -100,9 +105,10 @@ spreadsheet tool, instead of the raw dump it produces today.
 | 3 ✅ | Rows over the size limit split into separate files instead of failing |
 | 4 ✅ | A failed export tells you which row broke it |
 
-The code is written and the automated checks pass. Nobody has opened one of these
-files in the finance team's own tool yet, so "it actually works for them" is not
-settled.
+Taken as a whole this is not usable yet: milestones 6 and 7 have not been started, so
+the export finance actually runs is still the old one. Milestones 1–4 are wired into
+the new export, but nobody has opened one of those files in the finance team's own
+tool.
 
 ## Remaining
 | Milestone | State | What is left |
@@ -134,8 +140,8 @@ I would fix the currency columns next. Nothing for you to decide.
 | 3–4 ✅ | 로봇 연결 중 언어를 바꾸면 먼저 물어보는 확인 창 |
 | 5 ✅ | 쓰는 도중 언어를 바꿔도 편집기가 같은 언어로 다시 열림 |
 
-코드는 다 됐고 자동 테스트도 통과합니다. 다만 실제 기기 확인이 8개 중 3개만
-끝나서, "실제로 잘 된다"까지는 아직 확정이 아닙니다.
+여섯 단계 모두 앱에는 들어가 있고 자동 테스트도 통과합니다. 그다음 단계인 실제 기기
+확인이 8개 중 3개만 끝나서, "사용자가 실제로 쓸 수 있다"까지는 아직 확정이 아닙니다.
 
 ## 남은 것
 | 단계 | 상태 | 남은 일 |
@@ -154,7 +160,7 @@ I would fix the currency columns next. Nothing for you to decide.
 
 | Mistake | Fix |
 |---|---|
-| Giving a progress figure from memory | Count the boxes and use that number |
+| Giving a progress figure from memory | Script the tally, then check each box against the plan's criteria |
 | Reading a commit as a finished milestone | Claim only the evidence level you verified |
 | Forcing partial work into done or not-done | Mark it in progress or unverified |
 | Ending on "it's all finished" | Say separately what can be used right now |

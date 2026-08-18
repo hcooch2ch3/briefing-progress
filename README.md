@@ -7,7 +7,8 @@ for a person who has to repeat it to someone else, not for a machine reading a c
 
 Ask an agent "어디까지 됐어?" / "where are we?" and you usually get one of two answers:
 a wall of commit titles, or a confident number nobody counted. This skill replaces both
-with a seven-part contract that always opens on the same line:
+with a seven-part contract that opens on a counted line — or, where there is nothing to
+count, on one sentence saying why:
 
 ```
 0 of 6 milestones complete.
@@ -22,8 +23,8 @@ one next step.
 The rules that do the work:
 
 - **Count, don't estimate.** Where a plan exists, the number comes from a scripted tally of it,
-  cross-checked against the plan's own box count — never from reading and guessing. Where no
-  plan exists, there is no number, and it says so.
+  and each box is then checked against the plan's own completion criteria — never from reading
+  and guessing. Where no plan exists, there is no number, and it says so.
 - **Evidence has levels** — written → automated checks pass → wired into the product → a person
   can use it. A commit proves a commit exists. It does not prove the feature is wired, enabled,
   or usable.
@@ -108,10 +109,12 @@ Nothing else to configure — the agent loads it on its own when someone asks wh
 ## Language
 
 The briefing is written in whatever language the conversation is in. Section labels in the
-skill are semantic, not literal strings to copy. The reference vocabulary — the evidence
-ladder and the five milestone states — is written in Korean; English equivalents are
-`implemented → automated checks pass → wired into the app → a user can use it` and
-`done / in progress / blocked / not started / unverified`.
+skill are semantic, not literal strings to copy. The reference vocabulary is written
+English-first with a Korean equivalent beside it. The evidence ladder is
+`written → automated checks pass → wired into the product → a person can use it`
+(`구현됨 → 자동 검증 통과 → 앱에 배선됨 → 사용자가 쓸 수 있음`), and the five milestone
+states are `done / in progress / blocked / not started / unverified`
+(`완료 / 진행 중 / 막힘 / 시작 안 함 / 미검증`).
 
 ## License
 
