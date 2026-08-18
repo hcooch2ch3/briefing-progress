@@ -14,7 +14,7 @@ A status briefing for a person, not a changelog for a machine. Two failure modes
 
 ## Count Before Any Status Claim — Required
 
-**The number.** `N` = in-scope milestones in one named plan revision; `M` = those whose completion criteria are verified. Keep a unit word the reader can picture — stages, milestones, 단계 — not a bare fraction. `M` counts milestones, not a prefix: it never claims the first `M` are the finished ones. **Find the plan first, then script the tally against it:**
+**The number.** `N` = in-scope milestones in one named plan revision; `M` = those whose completion criteria are verified. Keep a unit word the reader can picture — stages, milestones, 단계 — not a bare fraction. `M` counts milestones, not a prefix: it never claims the first `M` are the finished ones. **Find the plan first, then script the tally against it** — `PLAN` below is the file you found:
 
 - `N`, every top-level box — `grep -cE '^[-*+] \[.\] ' "$PLAN"`
 - candidates for done — `grep -cE '^[-*+] \[[xX]\] ' "$PLAN"`
@@ -107,8 +107,10 @@ spreadsheet tool, instead of the raw dump it produces today.
 | 3 ✅ | Rows over the size limit split into separate files instead of failing |
 | 4 ✅ | A failed export tells you which row broke it |
 
-Taken as a whole this is not usable yet: milestones 6 and 7 have not been started, so
-the export finance actually runs is still the old one. Milestones 1–4 are wired into
+The plan sets no finish line of its own, so the bar here is the default one — the change
+has to be reachable in what people actually run. Taken as a whole this is not usable yet:
+milestones 6 and 7 have not been started, so the export finance actually runs is still the
+old one. Milestones 1–4 are wired into
 the new export, but nobody has opened one of those files in the finance team's own
 tool.
 
@@ -142,6 +144,7 @@ I would fix the currency columns next. Nothing for you to decide.
 | 3–4 ✅ | 로봇 연결 중 언어를 바꾸면 먼저 물어보는 확인 창 |
 | 5 ✅ | 쓰는 도중 언어를 바꿔도 편집기가 같은 언어로 다시 열림 |
 
+계획서에 따로 완료 기준이 없어서 기본 기준인 "앱에 배선돼 실제로 돌아간다"를 적용했습니다.
 다섯 단계는 앱에 들어가 자동 테스트까지 통과했습니다. 마지막 6단계는 실제 기기 확인이
 8개 중 3개만 끝나서, "사용자가 실제로 쓸 수 있다"까지는 아직 확정이 아닙니다.
 
