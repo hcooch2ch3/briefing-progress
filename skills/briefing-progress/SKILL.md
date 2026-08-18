@@ -14,27 +14,29 @@ A status briefing for a person, not a changelog for a machine. Two failure modes
 
 ## Count Before Any Status Claim — Required
 
-**The number.** `N` = in-scope milestones in one named plan revision; `M` = those whose completion criteria are verified. Keep a unit word the reader can picture — stages, milestones, 단계 — not a bare fraction. `M` counts milestones, not a prefix: it never claims the first `M` are the finished ones. **Script the tally, then read the plan behind it:**
+**The number.** `N` = in-scope milestones in one named plan revision; `M` = those whose completion criteria are verified. Keep a unit word the reader can picture — stages, milestones, 단계 — not a bare fraction. `M` counts milestones, not a prefix: it never claims the first `M` are the finished ones. **Find the plan first, then script the tally against it:**
 
-- `N`, every top-level box — `grep -cE '^[-*+] \[.\] ' PLAN.md`
-- candidates for done — `grep -cE '^[-*+] \[[xX]\] ' PLAN.md`
+- `N`, every top-level box — `grep -cE '^[-*+] \[.\] ' "$PLAN"`
+- candidates for done — `grep -cE '^[-*+] \[[xX]\] ' "$PLAN"`
 
 `\[.\]` takes whatever marker the plan uses: a milestone written `[~]`, `[/]` or `[-]` is in
 scope and simply not done, and takes one of the states in part 5. Only `[x]` or `[X]` is even a
 candidate for done.
 
-**Read `grep`'s exit code; never write `|| true`.** 1 means nothing matched — `N = 0`, the case
-this contract most needs to get right. 2 means the file isn't there, which is *When nothing
-names the milestones* instead. `|| true` reports the two as the same `0`.
+**Read `grep`'s exit code; never write `|| true`** — it reports every case below as the same
+`0`. From the done count, 1 means `M = 0`, and part 3 says what to do with that. From the box
+count, 1 means the file carries no boxes and 2 means you named the wrong file; both send you to
+*When you cannot count*, because a project having no plan anywhere is something you establish by
+looking, never by a failed `grep`.
 
 **Both counts are candidates, not answers.** The pattern counts lines; a plan is not a line
 format. Open it and reconcile. Brackets that are not milestones come out — a citation `[1]`, a
 checklist written at column 0 under a heading, anything in a fenced block where the plan
-documented its own format. Milestones the pattern could not see go in — `1. [x]`, headings, a
-tracker; a count of `0` from a file that plainly lists milestones means the plan is not in this
-format at all. Keep the `^` anchor while you reconcile: an indented sub-item is not a milestone,
-and counting one as such is how a half-done milestone reads as finished. If the two readings
-will not settle, go to *When you cannot count*.
+documented its own format. A milestone the pattern missed goes in only when it carries a box of
+its own, `1. [x]` rather than `- [x]`; anything with no box at all stays out, because supplying
+it yourself is inventing the denominator. Keep the `^` anchor while you reconcile: an indented
+sub-item is not a milestone, and counting one as such is how a half-done milestone reads as
+finished. If the two readings will not settle, go to *When you cannot count*.
 
 **`M` is narrower still**: the done candidates whose completion criteria you then confirmed, and
 confirming them means looking at the evidence — that is required here, not the estimating this
@@ -140,8 +142,8 @@ I would fix the currency columns next. Nothing for you to decide.
 | 3–4 ✅ | 로봇 연결 중 언어를 바꾸면 먼저 물어보는 확인 창 |
 | 5 ✅ | 쓰는 도중 언어를 바꿔도 편집기가 같은 언어로 다시 열림 |
 
-여섯 단계 모두 앱에는 들어가 있고 자동 테스트도 통과합니다. 그다음 단계인 실제 기기
-확인이 8개 중 3개만 끝나서, "사용자가 실제로 쓸 수 있다"까지는 아직 확정이 아닙니다.
+다섯 단계는 앱에 들어가 자동 테스트까지 통과했습니다. 마지막 6단계는 실제 기기 확인이
+8개 중 3개만 끝나서, "사용자가 실제로 쓸 수 있다"까지는 아직 확정이 아닙니다.
 
 ## 남은 것
 | 단계 | 상태 | 남은 일 |

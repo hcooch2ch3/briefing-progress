@@ -22,9 +22,10 @@ one next step.
 
 The rules that do the work:
 
-- **Count, don't estimate.** Where a plan exists, the number comes from a scripted tally of it,
-  and each box is then checked against the plan's own completion criteria — never from reading
-  and guessing. Where no plan exists, there is no number, and it says so.
+- **Count, don't estimate.** Where a plan exists, the number starts from a scripted tally and is
+  reconciled against the plan itself; each box is then checked against the plan's own completion
+  criteria, or against "wired into the product" where the plan states none. What is ruled out is
+  a figure from memory. Where no plan exists, there is no number, and it says so.
 - **Evidence has levels** — written → automated checks pass → wired into the product → a person
   can use it. A commit proves a commit exists. It does not prove the feature is wired, enabled,
   or usable.
