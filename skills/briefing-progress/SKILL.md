@@ -35,9 +35,8 @@ format. Open it and reconcile. Brackets that are not milestones come out — a c
 checklist written at column 0 under a heading, anything in a fenced block where the plan
 documented its own format. A milestone the pattern missed goes in only when it carries a box of
 its own, `1. [x]` rather than `- [x]`; anything with no box at all stays out, because supplying
-it yourself is inventing the denominator. Keep the `^` anchor while you reconcile: an indented
-sub-item is not a milestone, and counting one as such is how a half-done milestone reads as
-finished. If the two readings will not settle, go to *When you cannot count*.
+it yourself is inventing the denominator. An indented sub-item is not a milestone — that is what
+the `^` is for. If the two readings will not settle, go to *When you cannot count*.
 
 **`M` is narrower still**: the done candidates whose completion criteria you then confirmed, and
 confirming them means looking at the evidence — that is required here, not the estimating this
@@ -160,14 +159,3 @@ I would fix the currency columns next. Nothing for you to decide.
 ## 다음 걸음
 확인 5가지를 체크리스트로 뽑아드리는 게 좋겠습니다. 결정하실 건 없습니다.
 ````
-
-## Common Mistakes
-
-| Mistake | Fix |
-|---|---|
-| Giving a progress figure from memory | Script the tally, then check each box against the bar |
-| Reading a commit as a finished milestone | Claim only the evidence level you verified |
-| Forcing partial work into done or not-done | Mark it in progress or unverified |
-| Ending on "it's all finished" | Say separately what can be used right now |
-| Reading "explain it again" as "you decide" | Leave the decision; re-explain more plainly |
-| Turning what you cannot do into the reader's job | State it as a requirement; name an owner only if one is recorded |
