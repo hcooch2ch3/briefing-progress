@@ -14,21 +14,21 @@ A status briefing for a person, not a changelog for a machine. Two failure modes
 
 ## Count Before Any Status Claim — Required
 
-**The number.** `N` = in-scope milestones in one named plan revision; `M` = those whose completion criteria are verified. Keep a unit word the reader can picture — stages, milestones, 단계 — not a bare fraction. `M` counts milestones, not a prefix: it never claims the first `M` are the finished ones. **Find the plan first, then script the tally against it** — `PLAN` below is the file you found:
+**The number.** `N` = in-scope milestones in one named plan revision; `M` = those whose completion criteria are verified. Keep a unit word the reader can picture — stages, milestones, 단계 — not a bare fraction. `M` counts milestones, not a prefix: it never claims the first `M` are the finished ones. **Find the plan first, then script the tally against it:**
 
-- `N`, every top-level box — `grep -cE '^[-*+] \[.\] ' "$PLAN"`
-- candidates for done — `grep -cE '^[-*+] \[[xX]\] ' "$PLAN"`
+```bash
+PLAN=docs/plan.md                        # the plan you just found
+grep -cE '^[-*+] \[.\] '    "$PLAN"      # every top-level box — candidate N
+grep -cE '^[-*+] \[[xX]\] ' "$PLAN"      # of those, candidates for done
+```
 
-`\[.\]` takes whatever marker the plan uses, and a marker other than `[x]`, `[X]` or `[ ]` means
+Never `|| true`: a missing file prints nothing where an empty one prints `0`, and that is the
+difference between naming the wrong path and a plan that has no boxes yet.
+
+`\[.\]` takes any single-character marker the plan uses, and a marker other than `[x]`, `[X]` or `[ ]` means
 what the plan says it means: in scope and not done where it marks progress, outside `N` where it
-marks something dropped. Where the plan never says, the number is not settled — say which reading
-you took, in the same breath as the number. Only `[x]` or `[X]` is even a candidate for done.
-
-**Read `grep`'s exit code; never write `|| true`** — it reports every case below as the same
-`0`. From the done count, 1 means `M = 0`, and part 3 says what to do with that. From the box
-count, 1 means the file carries no boxes and 2 means you named the wrong file; both send you to
-*When you cannot count*, because a project having no plan anywhere is something you establish by
-looking, never by a failed `grep`.
+marks something dropped. Where the plan never says, name the reading you took and what
+the count would be the other way. Only `[x]` or `[X]` is even a candidate for done.
 
 **Both counts are candidates, not answers.** The pattern counts lines; a plan is not a line
 format. Open it and reconcile. Brackets that are not milestones come out — a citation `[1]`, a
@@ -56,7 +56,7 @@ A checked box, a commit, and a passing gate are three different claims. `git log
 
 **Each milestone gets a state:** done / in progress / blocked / not started / unverified — 완료 / 진행 중 / 막힘 / 시작 안 함 / 미검증. Only *done* counts toward `M`. Never promote partial work to finished to tidy a table.
 
-**Where the bar sits.** If the plan states its own completion criteria, those are the bar — use them even when they are stricter than the ladder. If it states none, the bar is `wired into the product`: the change is reachable in the thing people actually run. Name which of the two you applied, in one clause. A milestone resting at `written` or `automated checks pass` is 미검증 no matter how many commits it took, and the rung above the bar belongs in part 4, not in `M`.
+**Where the bar sits.** If the plan states its own completion criteria, those are the bar — use them even when they are stricter than the ladder. If it states none, the bar is `wired into the product`: the change is reachable in the thing people actually run. Name which of the two you applied. A milestone resting at `written` or `automated checks pass` is 미검증 no matter how many commits it took, and the rung above the bar belongs in part 4, not in `M`.
 
 **When you cannot count** — no authoritative plan, artifacts disagreeing, no gate, failing gate, dirty tree, work split across branches — say so. "There is no basis here for an exact milestone count" beats a confident wrong number.
 
@@ -69,7 +69,7 @@ Produce these seven parts, in this order, **and nothing else** — no appendix, 
 1. **Position line.** `M` of `N` milestones complete — "전체 N단계 중 M단계 완료." Its own sentence, and the first thing in the reply: no subject line, no greeting, no preamble, and no other number ahead of it.
 2. **One paragraph: what this work is for.** Reuse only words from this conversation or the product's own user-visible text.
 3. **Finished table.** One row per milestone, one sentence, ≤15 words, stating **what that milestone made true**. Group consecutive milestones sharing one outcome; past ~8 rows group by phase and offer the detail only if asked. When `M` is 0 the table still appears, as exactly one row: first cell `—`, second cell saying no milestone has met its completion criteria. Not a paragraph instead, not omitted.
-4. **Reality line.** The evidence level **every** in-scope milestone has reached — the floor across the set, not the ceiling — and what the reader can use right now. One milestone standing a rung higher does not lift this line; name that one separately if it matters. When nothing is usable yet, say exactly that.
+4. **Reality line.** The evidence level **every** in-scope milestone has reached — the floor across the set, not the ceiling — and what the reader can use right now. The bar you applied belongs here too, in one sentence, with any marker reading the plan left unsettled. One milestone standing a rung higher does not lift this line; name that one separately if it matters. When nothing is usable yet, say exactly that.
 5. **Remaining table.** Same shape, plus each item's state. Mark where it first becomes visible to a user. When nothing remains, drop this part — part 1 already said so, and a table of nothing reads as an omission.
 6. **Caveats.** Include (a) every milestone whose recorded plan no longer matches what was built, and (b) every milestone you cannot execute yourself — real-device testing, store submission, anything needing credentials. Write it as a requirement, not an assignment ("사람이 기기를 직접 만져야 합니다"); name an owner only where one is recorded. Never turn "I cannot do this" into "you must do this". When neither (a) nor (b) has anything in it, drop this part. A risk invented to fill the space is the exact failure this contract exists to prevent.
 7. **Next step.** One recommendation — when the work is finished, that is what to do with it (hand it over, close it out), never an invented next task. Ask a decision only when work is truly blocked without it — then give the consequence in the reader's terms, a default, and what proceeds regardless. No blocker, no question.
@@ -108,12 +108,11 @@ spreadsheet tool, instead of the raw dump it produces today.
 | 3 ✅ | Rows over the size limit split into separate files instead of failing |
 | 4 ✅ | A failed export tells you which row broke it |
 
-The plan sets no finish line of its own, so the bar here is the default one — the change
-has to be reachable in what people actually run. Taken as a whole this is not usable yet:
-milestones 6 and 7 have not been started, so the export finance actually runs is still the
-old one. Milestones 1–4 are wired into
-the new export, but nobody has opened one of those files in the finance team's own
-tool.
+The plan sets no finish line of its own, so the bar here is the default one — the
+change has to be reachable in what people actually run. Taken as a whole this is not
+usable yet: milestones 6 and 7 have not been started, so the export finance actually
+runs is still the old one. Milestones 1–4 are wired into the new export, but nobody
+has opened one of those files in the finance team's own tool.
 
 ## Remaining
 | Milestone | State | What is left |
@@ -152,7 +151,7 @@ I would fix the currency columns next. Nothing for you to decide.
 ## 남은 것
 | 단계 | 상태 | 남은 일 |
 |---|---|---|
-| 6 | 진행 중 (8개 중 3개) | 로봇 연결 중 가드 · 제3언어 기기 · 편집 내용 보존 · 다시 열기 실패 시 탈출 |
+| 6 | 진행 중 (8개 중 3개) | 로봇 연결 중 가드 · 제3언어 기기 · 편집 내용 보존 · 다시 열기 실패 시 탈출 · 앱 재시작 후 언어 유지 |
 
 ## 알아두실 것
 남은 확인 5가지는 사람이 기기를 직접 만져야 하는 일이라 제가 못 합니다. 담당은
@@ -166,7 +165,7 @@ I would fix the currency columns next. Nothing for you to decide.
 
 | Mistake | Fix |
 |---|---|
-| Giving a progress figure from memory | Script the tally, then check each box against the plan's criteria |
+| Giving a progress figure from memory | Script the tally, then check each box against the bar |
 | Reading a commit as a finished milestone | Claim only the evidence level you verified |
 | Forcing partial work into done or not-done | Mark it in progress or unverified |
 | Ending on "it's all finished" | Say separately what can be used right now |
