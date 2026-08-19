@@ -19,9 +19,10 @@ A status briefing for a person, not a changelog for a machine. Two failure modes
 - `N`, every top-level box — `grep -cE '^[-*+] \[.\] ' "$PLAN"`
 - candidates for done — `grep -cE '^[-*+] \[[xX]\] ' "$PLAN"`
 
-`\[.\]` takes whatever marker the plan uses: a milestone written `[~]`, `[/]` or `[-]` is in
-scope and simply not done, and takes one of the states in part 5. Only `[x]` or `[X]` is even a
-candidate for done.
+`\[.\]` takes whatever marker the plan uses, and a marker other than `[x]`, `[X]` or `[ ]` means
+what the plan says it means: in scope and not done where it marks progress, outside `N` where it
+marks something dropped. Where the plan never says, the number is not settled — say which reading
+you took, in the same breath as the number. Only `[x]` or `[X]` is even a candidate for done.
 
 **Read `grep`'s exit code; never write `|| true`** — it reports every case below as the same
 `0`. From the done count, 1 means `M = 0`, and part 3 says what to do with that. From the box
